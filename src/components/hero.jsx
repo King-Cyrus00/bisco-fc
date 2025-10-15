@@ -66,18 +66,18 @@ export default function HeroSection() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap');
-        
+
         .hero-title {
           font-family: 'Inter', sans-serif;
           font-weight: 900;
-          background: linear-gradient(90deg, rgba(59, 130, 246, 0.7), rgba(239, 68, 68, 0.7));
+          background: linear-gradient(90deg, rgba(59, 130, 246, 0.8), rgba(239, 68, 68, 0.8));
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           letter-spacing: 1px;
         }
-        
+
         .slide-image {
-          position: absolute;
+          position: fixed;
           top: 0;
           left: 0;
           width: 100%;
@@ -85,159 +85,109 @@ export default function HeroSection() {
           object-fit: cover;
           object-position: center;
           filter: brightness(0.9) contrast(1.05);
+          z-index: -1;
         }
-        
+
         @keyframes slideZoom {
           from { transform: scale(1); }
           to { transform: scale(1.08); }
         }
-        
+
         .animate-slide {
           animation: slideZoom 8s ease-in-out infinite alternate;
         }
-        
-        .tooltip {
-          position: absolute;
-          right: 60px;
-          top: 50%;
-          transform: translateY(-50%);
-          background: rgba(0, 0, 0, 0.8);
-          color: white;
-          padding: 8px 12px;
-          border-radius: 6px;
-          font-size: 12px;
-          font-family: 'Roboto', sans-serif;
-          white-space: nowrap;
-          opacity: 0;
-          pointer-events: none;
-          transition: opacity 0.3s ease;
-          z-index: 1000;
-        }
-        
-        .tooltip::after {
-          content: '';
-          position: absolute;
-          left: 100%;
-          top: 50%;
-          transform: translateY(-50%);
-          border: 4px solid transparent;
-          border-left-color: rgba(0, 0, 0, 0.8);
-        }
-        
-        .social-icon-container:hover .tooltip {
-          opacity: 1;
+
+        @media (max-width: 1024px) {
+          .hero-title {
+            font-size: 2.8rem;
+          }
         }
 
         @media (max-width: 768px) {
           .hero-title {
-            font-size: 2.5rem;
-            line-height: 1.2;
-          }
-          
-          .tooltip {
-            right: 50px;
-            font-size: 11px;
-            padding: 6px 10px;
+            font-size: 2.2rem;
+            line-height: 1.3;
           }
         }
 
         @media (max-width: 480px) {
           .hero-title {
-            font-size: 2rem;
-          }
-          
-          .tooltip {
-            display: none;
+            font-size: 1.8rem;
           }
         }
       `}</style>
 
-      <section className="relative w-full h-screen flex items-center justify-center overflow-hidden" aria-label="Hero section">
-        {/* Background Slides */}
-        <div className="absolute inset-0">
-          {!showLogo && (
-            <>
-              <img src={heroConfig.slides[currentSlide].src} alt={heroConfig.slides[currentSlide].alt} className="slide-image animate-slide" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-10" />
-            </>
-          )}
-        </div>
+      <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        {/* Static Background */}
+        {!showLogo && (
+          <>
+            <img src={heroConfig.slides[currentSlide].src} alt={heroConfig.slides[currentSlide].alt} className="slide-image animate-slide" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
+          </>
+        )}
 
-        {/* Intro Badge Animation */}
+        {/* Intro Logo Animation */}
         <AnimatePresence>
           {showLogo && (
             <motion.div
-              className="absolute inset-0 z-20 flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg, #E3F2FD 30%, #FFEBEE 70%)' }}
+              className="absolute inset-0 z-30 flex items-center justify-center bg-gradient-to-br from-blue-50 to-red-50"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <motion.div
-                initial={{ scale: 0.5, rotate: -15, opacity: 0 }}
+              <motion.img
+                src={logo}
+                alt="Bisco FC Logo"
+                className="w-40 sm:w-52 md:w-64 lg:w-72 object-contain"
+                initial={{ scale: 0.5, rotate: -10, opacity: 0 }}
                 animate={{ scale: 1, rotate: 0, opacity: 1 }}
                 exit={{ scale: 1.3, opacity: 0 }}
                 transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
-                className="relative"
-              >
-                <motion.div
-                  className="absolute inset-0 rounded-full"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(239,68,68,0.1) 0%, transparent 70%)',
-                    filter: 'blur(40px)',
-                  }}
-                  animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                />
-                <img src={logo} alt="Bisco FC logo" className="w-48 h-48 sm:w-56 md:w-64 lg:w-80 object-contain relative z-10" />
-              </motion.div>
+              />
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Main Hero Content */}
+        {/* Main Hero Text + Buttons */}
         <AnimatePresence>
           {!showLogo && (
             <motion.div
-              className="relative z-20 text-center flex flex-col items-center justify-center px-4 sm:px-6"
+              className="relative z-20 text-center flex flex-col items-center justify-center px-6 sm:px-8 md:px-12"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.2 }}
+              transition={{ duration: 1 }}
             >
-              {/* Animated Title */}
-              <motion.div
+              <motion.h1
                 key={animationKey}
-                className="mb-4 px-2"
+                className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-3 sm:mb-5"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.8 }}
               >
-                <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold leading-tight">
-                  {showWelcome ? 'WELCOME TO' : 'BISCO FOOTBALL CLUB'}
-                </h1>
-              </motion.div>
+                {showWelcome ? 'WELCOME TO' : 'BISCO FOOTBALL CLUB'}
+              </motion.h1>
 
-              {/* Subtitle */}
               <motion.p
-                className="text-white/90 text-base sm:text-lg md:text-xl max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-2xl mb-6 sm:mb-8 md:mb-10 px-2"
+                className="text-white/90 text-sm sm:text-base md:text-lg max-w-md sm:max-w-xl md:max-w-2xl mb-6 sm:mb-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.7, duration: 0.8 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
               >
                 Home of Champions. Join the Blue Army and Experience the Passion of Football.
               </motion.p>
 
-              {/* CTA Buttons */}
               <motion.div
-                className="flex flex-col sm:flex-row gap-3 sm:gap-4 px-2"
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.9, duration: 0.5 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
               >
-                <Button onClick={() => navigate('/teams')} className="w-full sm:w-auto">Explore Teams</Button>
-                <Button onClick={() => navigate('/contact')} variant="secondary" className="w-full sm:w-auto">
+                <Button onClick={() => navigate('/teams')} className="w-full sm:w-auto px-6 py-3 text-sm sm:text-base">
+                  Explore Teams
+                </Button>
+                <Button onClick={() => navigate('/contact')} variant="secondary" className="w-full sm:w-auto px-6 py-3 text-sm sm:text-base">
                   Get in Touch
                 </Button>
               </motion.div>
@@ -245,30 +195,24 @@ export default function HeroSection() {
           )}
         </AnimatePresence>
 
-        {/* Social Icons (Right Side Vertical) */}
+        {/* Social Media Icons */}
         {!showLogo && (
           <motion.div
-            className="absolute right-3 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-2 sm:gap-3 md:gap-4"
+            className="absolute right-3 sm:right-5 md:right-8 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3 sm:gap-4"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
+            transition={{ delay: 1 }}
           >
             {socialLinks.map((item, index) => (
-              <div key={index} className="relative group social-icon-container">
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`flex items-center justify-center w-10 h-10 sm:w-11 md:w-12 bg-white/10 rounded-lg text-white backdrop-blur-md transition-colors duration-300 ${item.hover}`}
-                >
-                  <div className="w-full h-full flex items-center justify-center rounded-lg">
-                    {item.icon}
-                  </div>
-                </a>
-                <div className="tooltip">
-                  {item.label}
-                </div>
-              </div>
+              <a
+                key={index}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 bg-white/10 rounded-lg text-white backdrop-blur-md transition-colors duration-300 ${item.hover}`}
+              >
+                {item.icon}
+              </a>
             ))}
           </motion.div>
         )}
