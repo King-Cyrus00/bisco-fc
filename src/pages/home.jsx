@@ -45,21 +45,21 @@ export default function Home() {
           max-width: 100vw;
         }
       `}</style>
-      
+
       <main className="relative w-full overflow-x-hidden font-inter bg-white">
         {/* Navbar */}
         <Navbar />
 
-        {/* Static Hero Section */}
+        {/* Hero Section (not fixed) */}
         <section
           id="hero"
-          className="fixed top-0 left-0 w-full h-screen z-0 bg-gradient-to-br from-blue-900 via-blue-700 to-red-600 text-white"
+          className="relative w-full min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-red-600 text-white"
         >
           <HeroSection />
         </section>
 
         {/* Scrollable Content */}
-        <div className="relative z-10 pt-[100vh]">
+        <div className="relative z-10">
           <section
             id="about"
             className="relative min-h-screen bg-white text-gray-800 transition-colors duration-500"
@@ -91,7 +91,7 @@ export default function Home() {
           <Footer />
         </div>
 
-        {/* Scroll To Top Button - Responsive positioning */}
+        {/* Scroll To Top Button */}
         <AnimatePresence>
           {showScrollTop && (
             <motion.button
