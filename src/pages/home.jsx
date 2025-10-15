@@ -14,7 +14,7 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 600)
+      setShowScrollTop(window.scrollY > 400)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -27,57 +27,71 @@ export default function Home() {
 
   return (
     <>
+      <style>{`
+        /* Prevent horizontal scroll */
+        html, body {
+          overflow-x: hidden;
+          max-width: 100vw;
+        }
+        
+        /* Smooth scrolling */
+        html {
+          scroll-behavior: smooth;
+        }
+        
+        /* Ensure sections don't overflow */
+        section {
+          overflow-x: hidden;
+          max-width: 100vw;
+        }
+      `}</style>
+      
       <main className="relative w-full overflow-x-hidden font-inter bg-white">
-        {/* ✅ Navbar */}
+        {/* Navbar */}
         <Navbar />
 
-        {/* ✅ Static Hero Section */}
+        {/* Static Hero Section */}
         <section
           id="hero"
-          className="fixed top-0 left-0 w-full h-screen z-0 bg-gradient-to-br from-blue-900 via-blue-700 to-red-600 text-white flex items-center justify-center"
+          className="fixed top-0 left-0 w-full h-screen z-0 bg-gradient-to-br from-blue-900 via-blue-700 to-red-600 text-white"
         >
           <HeroSection />
         </section>
 
-        {/* ✅ Scrollable Content */}
+        {/* Scrollable Content */}
         <div className="relative z-10 pt-[100vh]">
-          {/* About Section */}
           <section
             id="about"
-            className="relative min-h-screen bg-white text-gray-800 transition-colors duration-500 flex items-center justify-center px-4 sm:px-6 md:px-10"
+            className="relative min-h-screen bg-white text-gray-800 transition-colors duration-500"
           >
             <AboutSection />
           </section>
 
-          {/* Teams Section */}
           <section
             id="teams"
-            className="relative min-h-screen bg-gradient-to-b from-white via-gray-50 to-blue-50 flex items-center justify-center px-4 sm:px-6 md:px-10"
+            className="relative min-h-screen bg-gradient-to-b from-white via-gray-50 to-blue-50"
           >
             <Teams />
           </section>
 
-          {/* Gallery Section */}
           <section
             id="gallery"
-            className="relative min-h-screen bg-gradient-to-b from-blue-50 via-white to-red-50 flex items-center justify-center px-4 sm:px-6 md:px-10"
+            className="relative min-h-screen bg-gradient-to-b from-blue-50 via-white to-red-50"
           >
             <GallerySection />
           </section>
 
-          {/* Contact Section */}
           <section
             id="contact"
-            className="relative min-h-screen bg-gradient-to-br from-red-50 via-white to-blue-50 flex items-center justify-center px-4 sm:px-6 md:px-10"
+            className="relative min-h-screen bg-gradient-to-br from-red-50 via-white to-blue-50"
           >
             <ContactSection />
           </section>
 
-          {/* Footer */}
           <Footer />
         </div>
 
-        {/* ✅ Scroll To Top Button */}
+        {/* Scroll To Top Button - Responsive positioning */}
         <AnimatePresence>
           {showScrollTop && (
             <motion.button
@@ -86,7 +100,7 @@ export default function Home() {
               exit={{ opacity: 0, y: 50 }}
               transition={{ duration: 0.4 }}
               onClick={scrollToTop}
-              className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 bg-gradient-to-r from-blue-600 to-red-600 text-white p-3 sm:p-4 rounded-full shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300 z-50"
+              className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-gradient-to-r from-blue-600 to-red-600 text-white p-2.5 sm:p-3 rounded-full shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300 z-50"
               aria-label="Scroll to top"
             >
               <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6" />
