@@ -26,80 +26,74 @@ export default function Home() {
   }
 
   return (
-    <main className="relative w-full overflow-x-hidden font-inter bg-white text-gray-900">
-      {/* Navbar */}
-      <Navbar />
+    <>
+      <main className="relative w-full overflow-x-hidden font-inter bg-white">
+        {/* ✅ Navbar */}
+        <Navbar />
 
-      {/* Hero Section */}
-      <section
-        id="hero"
-        className="fixed top-0 left-0 w-full h-screen z-0 bg-gradient-to-br from-blue-900 via-blue-700 to-red-600 text-white flex items-center justify-center px-4 sm:px-8"
-      >
-        <HeroSection />
-      </section>
-
-      {/* Scrollable Content */}
-      <div className="relative z-10 pt-[100vh]">
-        {/* About Section */}
+        {/* ✅ Static Hero Section */}
         <section
-          id="about"
-          className="relative min-h-screen flex items-center justify-center bg-white text-gray-800 px-4 sm:px-8 md:px-16 lg:px-24 py-12 sm:py-16 transition-colors duration-500"
+          id="hero"
+          className="fixed top-0 left-0 w-full h-screen z-0 bg-gradient-to-br from-blue-900 via-blue-700 to-red-600 text-white flex items-center justify-center"
         >
-          <div className="w-full max-w-7xl">
-            <AboutSection />
-          </div>
+          <HeroSection />
         </section>
 
-        {/* Teams Section */}
-        <section
-          id="teams"
-          className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-gray-50 to-blue-50 px-4 sm:px-8 md:px-16 lg:px-24 py-12 sm:py-16"
-        >
-          <div className="w-full max-w-7xl">
-            <Teams />
-          </div>
-        </section>
-
-        {/* Gallery Section */}
-        <section
-          id="gallery"
-          className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 via-white to-red-50 px-4 sm:px-8 md:px-16 lg:px-24 py-12 sm:py-16"
-        >
-          <div className="w-full max-w-7xl">
-            <GallerySection />
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section
-          id="contact"
-          className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 via-white to-blue-50 px-4 sm:px-8 md:px-16 lg:px-24 py-12 sm:py-16"
-        >
-          <div className="w-full max-w-7xl">
-            <ContactSection />
-          </div>
-        </section>
-
-        {/* Footer */}
-        <Footer />
-      </div>
-
-      {/* Scroll To Top Button */}
-      <AnimatePresence>
-        {showScrollTop && (
-          <motion.button
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            transition={{ duration: 0.4 }}
-            onClick={scrollToTop}
-            className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 bg-gradient-to-r from-blue-600 to-red-600 text-white p-3 sm:p-4 rounded-full shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300 z-50"
-            aria-label="Scroll to top"
+        {/* ✅ Scrollable Content */}
+        <div className="relative z-10 pt-[100vh]">
+          {/* About Section */}
+          <section
+            id="about"
+            className="relative min-h-screen bg-white text-gray-800 transition-colors duration-500 flex items-center justify-center px-4 sm:px-6 md:px-10"
           >
-            <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6" />
-          </motion.button>
-        )}
-      </AnimatePresence>
-    </main>
+            <AboutSection />
+          </section>
+
+          {/* Teams Section */}
+          <section
+            id="teams"
+            className="relative min-h-screen bg-gradient-to-b from-white via-gray-50 to-blue-50 flex items-center justify-center px-4 sm:px-6 md:px-10"
+          >
+            <Teams />
+          </section>
+
+          {/* Gallery Section */}
+          <section
+            id="gallery"
+            className="relative min-h-screen bg-gradient-to-b from-blue-50 via-white to-red-50 flex items-center justify-center px-4 sm:px-6 md:px-10"
+          >
+            <GallerySection />
+          </section>
+
+          {/* Contact Section */}
+          <section
+            id="contact"
+            className="relative min-h-screen bg-gradient-to-br from-red-50 via-white to-blue-50 flex items-center justify-center px-4 sm:px-6 md:px-10"
+          >
+            <ContactSection />
+          </section>
+
+          {/* Footer */}
+          <Footer />
+        </div>
+
+        {/* ✅ Scroll To Top Button */}
+        <AnimatePresence>
+          {showScrollTop && (
+            <motion.button
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
+              transition={{ duration: 0.4 }}
+              onClick={scrollToTop}
+              className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 bg-gradient-to-r from-blue-600 to-red-600 text-white p-3 sm:p-4 rounded-full shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300 z-50"
+              aria-label="Scroll to top"
+            >
+              <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6" />
+            </motion.button>
+          )}
+        </AnimatePresence>
+      </main>
+    </>
   )
 }
